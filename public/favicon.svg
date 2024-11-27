@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- House/Shelter -->
+  <path d="M16 4L4 16H7V27H25V16H28L16 4Z" fill="#16a34a"/>
+  
+  <!-- Heart -->
+  <path d="M16 19C16 19 14 16 11 16C8 16 7 18 7 20C7 22 8 25 16 28C24 25 25 22 25 20C25 18 24 16 21 16C18 16 16 19 16 19Z" fill="#ffffff"/>
+</svg> 

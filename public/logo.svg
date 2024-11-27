@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- House/Shelter -->
+  <path d="M100 20L20 100H40V170H160V100H180L100 20Z" fill="#16a34a"/>
+  
+  <!-- Heart -->
+  <path d="M100 120C100 120 85 100 70 100C55 100 45 115 45 130C45 145 55 160 100 180C145 160 155 145 155 130C155 115 145 100 130 100C115 100 100 120 100 120Z" fill="#ffffff"/>
+  
+  <!-- Optional: Add a subtle shadow -->
+  <path d="M100 20L20 100H40V170H160V100H180L100 20Z" fill="black" opacity="0.1" transform="translate(5,5)"/>
+</svg> 
