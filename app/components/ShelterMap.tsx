@@ -2,12 +2,10 @@
 
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Shelter } from '@/types/shelter';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-
+import { Shelter } from '../../types/shelter';
 // Fix for default marker icon
-delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: '/marker-icon-2x.png',
   iconUrl: '/marker-icon.png',
