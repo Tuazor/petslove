@@ -10,6 +10,7 @@ import {
   Clock3, AlertCircle, CheckCircle, Building, ImageOff
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import ImageGallery from '../../components/ImageGallery';
 
 const ShelterMap = dynamic(() => import('../../components/ShelterMap'), {
   ssr: false,
@@ -164,31 +165,12 @@ export default function ShelterDetailsPage({ params }: { params: { id: string } 
 
       {/* Image Gallery */}
       <div className="mb-8">
-        {isLoadingImages ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-64 bg-gray-200 rounded-lg animate-pulse" />
-            ))}
-          </div>
-        ) : images.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {images.slice(0, 3).map((image) => (
-              <div key={image.id} className="relative h-64 rounded-lg overflow-hidden">
-                <Image
-                  src={image.urls.regular}
-                  alt={image.alt_description || 'Shelter image'}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-8 bg-gray-50 rounded-lg">
-            <ImageOff className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-            <p className="text-gray-600">No images available</p>
-          </div>
-        )}
+        <ImageGallery 
+          shelterName={shelter.name}
+          shelterCity={shelter.city}
+          animalTypes={shelter.animalTypes || ['dogs', 'cats']}
+          count={3}
+        />
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
