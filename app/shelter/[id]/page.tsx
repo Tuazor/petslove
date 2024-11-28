@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import sheltersData from '../../../app/data/shelters.json';
+import { Shelter } from '../../../types/shelter';
+import sheltersData from '../../../app/data/shelters.json' assert { type: 'json' } as Shelter[];
 import { 
   MapPin, Phone, Mail, Globe, Clock, Info, Heart, Share2, 
   ExternalLink, Navigation, Sparkles, Calendar, Users, PawPrint,
