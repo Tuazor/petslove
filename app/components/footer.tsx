@@ -19,6 +19,8 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Resources</h3>
             <ul className="space-y-2">
               <li><Link href="/adopt" className="text-gray-600 hover:text-green-600 transition duration-300">Adoption Process</Link></li>
+              <li><Link href="/volunteer" className="text-gray-600 hover:text-green-600 transition duration-300">Volunteer</Link></li>
+              <li><Link href="/suggest-shelter" className="text-gray-600 hover:text-green-600 transition duration-300">Suggest a Shelter</Link></li>
               <li><Link href="/care-tips" className="text-gray-600 hover:text-green-600 transition duration-300">Pet Care Tips</Link></li>
               <li><Link href="/faq" className="text-gray-600 hover:text-green-600 transition duration-300">FAQs</Link></li>
             </ul>

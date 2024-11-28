@@ -90,13 +90,35 @@ export default function ShelterSearchPage() {
           ))}
         </div>
 
-        {/* Pagination */}
-        <div className="flex justify-center mt-8">
-          <Pagination 
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
+        {/* Mobile and Desktop Pagination */}
+        <div className="mt-8 flex justify-center">
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+              disabled={currentPage === 1}
+              className={`px-4 py-2 rounded-lg ${
+                currentPage === 1
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-green-600 text-white hover:bg-green-700'
+              }`}
+            >
+              Previous
+            </button>
+            <span className="text-gray-600">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className={`px-4 py-2 rounded-lg ${
+                currentPage === totalPages
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-green-600 text-white hover:bg-green-700'
+              }`}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </>
     );

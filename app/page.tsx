@@ -6,6 +6,7 @@ import { MapPin, Phone, Mail, Search } from 'lucide-react';
 import sheltersData from './data/shelters.json';
 import ShelterStatistics from './components/ShelterStatistics';
 import SearchBar from './components/SearchBar';
+import AwarenessBanner from './components/AwarenessBanner';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,33 +44,6 @@ export default function Home() {
       <section className="container mx-auto px-4 py-16">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold text-gray-800">Featured Shelters</h2>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-              className={`px-4 py-2 rounded-lg ${
-                currentPage === 1
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-green-600 text-white hover:bg-green-700'
-              }`}
-            >
-              Previous
-            </button>
-            <span className="text-gray-600">
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className={`px-4 py-2 rounded-lg ${
-                currentPage === totalPages
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-green-600 text-white hover:bg-green-700'
-              }`}
-            >
-              Next
-            </button>
-          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -106,8 +80,8 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Mobile Pagination */}
-        <div className="mt-6 flex justify-center md:hidden">
+        {/* Mobile and Desktop Pagination */}
+        <div className="mt-8 flex justify-center">
           <div className="flex items-center space-x-2">
             <button
               onClick={handlePrevPage}
@@ -121,7 +95,7 @@ export default function Home() {
               Previous
             </button>
             <span className="text-gray-600">
-              {currentPage} / {totalPages}
+              Page {currentPage} of {totalPages}
             </span>
             <button
               onClick={handleNextPage}
@@ -147,6 +121,9 @@ export default function Home() {
           <ShelterStatistics />
         </div>
       </section>
+
+      {/* Awareness Campaign Banner */}
+      <AwarenessBanner />
     </main>
   );
 }
