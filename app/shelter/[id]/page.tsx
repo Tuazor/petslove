@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Shelter } from '../../../types/shelter';
-import sheltersData from '../../../app/data/shelters.json' assert { type: 'json' } as Shelter[];
+import sheltersData from '../../../app/data/shelters.json';
 import { 
   MapPin, Phone, Mail, Globe, Clock, Info, Heart, Share2, 
   ExternalLink, Navigation, Sparkles, Calendar, Users, PawPrint,
@@ -169,7 +169,7 @@ export default function ShelterDetailsPage({ params }: { params: { id: string } 
         <ImageGallery 
           shelterName={shelter.name}
           shelterCity={shelter.city}
-          animalTypes={shelter.animalTypes || ['dogs', 'cats']}
+          animalTypes={['dogs', 'cats']}
           count={3}
         />
       </div>
