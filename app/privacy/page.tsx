@@ -1,8 +1,10 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Shield, Lock, Database, UserCheck } from 'lucide-react';
 
-export default function PrivacyPolicyPage() {
+export default function PrivacyPage() {
   const privacySections = [
     {
       title: 'Information We Collect',

@@ -2,20 +2,11 @@
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://petslove.info',
   generateRobotsTxt: true,
+  generateIndexSitemap: false,
+  exclude: ['/server-sitemap.xml'],
   robotsTxtOptions: {
-    policies: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/private/', '/admin/'],
-      },
-    ],
     additionalSitemaps: [
       'https://petslove.info/server-sitemap.xml',
     ],
   },
-  exclude: ['/private/*', '/admin/*'],
-  generateIndexSitemap: false,
-  changefreq: 'daily',
-  priority: 0.7,
 } 

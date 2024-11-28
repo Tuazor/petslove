@@ -1,8 +1,10 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { FileText, Gavel, Globe, Users } from 'lucide-react';
 
-export default function TermsOfServicePage() {
+export default function TermsPage() {
   const termsSections = [
     {
       title: 'Acceptance of Terms',
