@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { MapPin, Phone, Mail, Search } from 'lucide-react';
 import sheltersData from './data/shelters.json';
 import ShelterStatistics from './components/ShelterStatistics';
+import SearchBar from './components/SearchBar';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,26 +27,15 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="bg-green-50 py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
-            Find Your Perfect Pet Companion
+      <section className="bg-gradient-to-b from-green-50 to-white py-20">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-6">
+            Find Animal Shelters Near You
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Connect with trusted animal shelters across North America and bring home a loving friend.
+          <p className="text-xl text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Connect with trusted animal shelters across North America and help animals find their forever homes.
           </p>
-          
-          {/* Search Bar */}
-          <div className="max-w-xl mx-auto flex items-center bg-white shadow-md rounded-full overflow-hidden">
-            <input 
-              type="text" 
-              placeholder="Search shelters by location" 
-              className="flex-grow px-6 py-3 outline-none"
-            />
-            <button className="bg-green-600 text-white px-6 py-3 hover:bg-green-700 transition duration-300">
-              <Search size={20} />
-            </button>
-          </div>
+          <SearchBar />
         </div>
       </section>
 

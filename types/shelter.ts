@@ -9,4 +9,6 @@ export interface Shelter {
   phone?: string;
   latitude: number;
   longitude: number;
+  services?: string[];
+  animalTypes?: string[];
 } 
