@@ -14,11 +14,13 @@ interface FeaturedSheltersProps {
 }
 
 export default function FeaturedShelters({ shelters }: FeaturedSheltersProps) {
+  const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState<'name' | 'state' | 'city'>('state');
   const [filterRegion, setFilterRegion] = useState<string>('');
   const [filterHasEmail, setFilterHasEmail] = useState(false);
   const [filterHasPhone, setFilterHasPhone] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const itemsPerPage = 12;
 
   // Convert input to array if needed
   const shelterArray = Array.isArray(shelters) ? shelters : [];
@@ -30,7 +32,7 @@ export default function FeaturedShelters({ shelters }: FeaturedSheltersProps) {
   }, [shelterArray]);
 
   // Sort and filter shelters
-  const displayShelters = useMemo(() => {
+  const filteredShelters = useMemo(() => {
     return shelterArray
       .filter(shelter => {
         const stateColor = getStateColor(shelter.state);
@@ -50,9 +52,22 @@ export default function FeaturedShelters({ shelters }: FeaturedSheltersProps) {
           default:
             return 0;
         }
-      })
-      .slice(0, 6);
+      });
   }, [shelterArray, sortBy, filterRegion, filterHasEmail, filterHasPhone]);
+
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredShelters.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentShelters = filteredShelters.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
 
   return (
     <div>
@@ -79,7 +94,7 @@ export default function FeaturedShelters({ shelters }: FeaturedSheltersProps) {
 
         {/* Filter counts */}
         <div className="text-sm text-gray-600">
-          Showing {displayShelters.length} of {shelterArray.length} shelters
+          Showing {currentShelters.length} of {filteredShelters.length} shelters
         </div>
       </div>
 
@@ -156,8 +171,8 @@ export default function FeaturedShelters({ shelters }: FeaturedSheltersProps) {
       )}
 
       {/* Shelter Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {displayShelters.map((shelter) => {
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {currentShelters.map((shelter) => {
           const stateColor = getStateColor(shelter.state);
           return (
             <div 
@@ -245,6 +260,37 @@ export default function FeaturedShelters({ shelters }: FeaturedSheltersProps) {
             </div>
           );
         })}
+      </div>
+
+      {/* Pagination */}
+      <div className="mt-8 flex justify-center px-4">
+        <div className="flex flex-wrap items-center justify-center gap-2 w-full max-w-sm">
+          <button
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+            className={`px-3 py-2 rounded-lg text-sm ${
+              currentPage === 1
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-green-600 text-white hover:bg-green-700'
+            }`}
+          >
+            Previous
+          </button>
+          <span className="text-gray-600 text-sm whitespace-nowrap">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+            className={`px-3 py-2 rounded-lg text-sm ${
+              currentPage === totalPages
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-green-600 text-white hover:bg-green-700'
+            }`}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

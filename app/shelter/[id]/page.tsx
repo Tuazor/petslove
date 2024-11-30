@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Shelter } from '../../../types/shelter';
@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import ImageGallery from '../../components/ImageGallery';
+import { getDistance } from '../../utils/distance';
 
 const ShelterMap = dynamic(() => import('../../components/ShelterMap'), {
   ssr: false,
@@ -344,6 +345,65 @@ export default function ShelterDetailsPage({ params }: { params: { id: string } 
           </div>
         </div>
       </div>
+
+      <RelatedShelters currentShelter={shelter} />
     </div>
+  );
+}
+
+function RelatedShelters({ currentShelter }: { currentShelter: Shelter }) {
+  const relatedShelters = useMemo(() => {
+    return sheltersData
+      .filter(shelter => 
+        // Exclude current shelter
+        shelter.id !== currentShelter.id &&
+        // Include shelters from same state or within 50 miles
+        (shelter.state === currentShelter.state ||
+          getDistance(
+            { lat: shelter.latitude, lng: shelter.longitude },
+            { lat: currentShelter.latitude, lng: currentShelter.longitude }
+          ) <= 50)
+      )
+      .slice(0, 3); // Show only 3 related shelters
+  }, [currentShelter]);
+
+  if (relatedShelters.length === 0) return null;
+
+  return (
+    <section className="mt-12">
+      <h2 className="text-2xl font-semibold mb-6">Nearby Shelters</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {relatedShelters.map((shelter) => (
+          <Link
+            key={shelter.id}
+            href={`/shelter/${shelter.id}`}
+            className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+          >
+            <div className="p-6">
+              <h3 className="text-lg font-semibold mb-3 text-gray-800">
+                {shelter.name}
+              </h3>
+              <div className="space-y-2 text-gray-600">
+                <div className="flex items-center">
+                  <MapPin className="w-4 h-4 mr-2 text-green-600" />
+                  <span className="text-sm">
+                    {shelter.city}, {shelter.state}
+                    {currentShelter.state === shelter.state ? 
+                      ' · Same State' : 
+                      ' · Nearby'}
+                  </span>
+                </div>
+                {shelter.phone && (
+                  <div className="flex items-center">
+                    <Phone className="w-4 h-4 mr-2 text-green-600" />
+                    <span className="text-sm">{shelter.phone}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
