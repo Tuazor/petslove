@@ -13,6 +13,7 @@ import {
 import dynamic from 'next/dynamic';
 import ImageGallery from '../../components/ImageGallery';
 import { getDistance } from '../../utils/distance';
+import AdBanner from '../../components/AdBanner';
 
 const ShelterMap = dynamic(() => import('../../components/ShelterMap'), {
   ssr: false,
@@ -132,6 +133,9 @@ export default function ShelterDetailsPage({ params }: { params: { id: string } 
 
   return (
     <div className="container mx-auto px-4 py-12">
+      {/* Top Ad Banner */}
+      <AdBanner position="top" />
+
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start mb-8">
         <div>
@@ -290,6 +294,9 @@ export default function ShelterDetailsPage({ params }: { params: { id: string } 
               )}
             </div>
           </div>
+
+          {/* Inline Ad */}
+          <AdBanner position="inline" />
         </div>
 
         <div className="space-y-6">
@@ -347,6 +354,9 @@ export default function ShelterDetailsPage({ params }: { params: { id: string } 
       </div>
 
       <RelatedShelters currentShelter={shelter} />
+
+      {/* Bottom Ad Banner */}
+      <AdBanner position="bottom" />
     </div>
   );
 }
