@@ -9,34 +9,46 @@ interface AdBannerProps {
 
 export default function AdBanner({ position, className = '' }: AdBannerProps) {
   const [isClient, setIsClient] = useState(false);
+  const containerId = `ad-container-${position}`;
 
   useEffect(() => {
     setIsClient(true);
     
-    // Initialize Adsterra options
-    if (typeof window !== 'undefined') {
-      (window as any).atOptions = {
-        'key': '4e259cf268180e83111f4e227842d271',
-        'format': 'iframe',
-        'height': 90,
-        'width': 728,
-        'params': {}
-      };
-    }
+    // Create container div for the ad
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
-    // Load Adsterra script
-    const script = document.createElement('script');
-    script.src = "//www.highperformanceformat.com/4e259cf268180e83111f4e227842d271/invoke.js";
-    script.async = true;
-    document.body.appendChild(script);
+    // Clear previous content
+    container.innerHTML = '';
+    
+    // Add the Adsterra configuration script
+    const configScript = document.createElement('script');
+    configScript.type = 'text/javascript';
+    configScript.text = `
+      atOptions = {
+        'key' : '4e259cf268180e83111f4e227842d271',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    `;
+    container.appendChild(configScript);
+
+    // Add the Adsterra invoke script
+    const invokeScript = document.createElement('script');
+    invokeScript.type = 'text/javascript';
+    invokeScript.src = '//www.highperformanceformat.com/4e259cf268180e83111f4e227842d271/invoke.js';
+    invokeScript.async = true;
+    container.appendChild(invokeScript);
 
     return () => {
-      // Cleanup script when component unmounts
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
+      // Cleanup
+      if (container) {
+        container.innerHTML = '';
       }
     };
-  }, []);
+  }, [position, containerId]);
 
   if (!isClient) return null;
 
@@ -44,11 +56,11 @@ export default function AdBanner({ position, className = '' }: AdBannerProps) {
     switch (position) {
       case 'top':
       case 'bottom':
-        return 'max-w-[728px] h-[90px] mx-auto';
+        return 'max-w-[728px] h-[90px] mx-auto mb-6';
       case 'sidebar':
         return 'w-[300px] h-[600px]';
       case 'inline':
-        return 'max-w-[728px] h-[90px] mx-auto';
+        return 'max-w-[728px] h-[90px] mx-auto my-6';
       default:
         return '';
     }
@@ -56,8 +68,7 @@ export default function AdBanner({ position, className = '' }: AdBannerProps) {
 
   return (
     <div className={`${getAdStyle()} ${className}`}>
-      {/* Container for Adsterra ad */}
-      <div id={`ad-${position}`}></div>
+      <div id={containerId}></div>
     </div>
   );
 } 
