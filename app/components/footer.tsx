@@ -12,7 +12,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/about" className="text-gray-600 hover:text-green-600 transition duration-300">About Us</Link></li>
               <li><Link href="/contact" className="text-gray-600 hover:text-green-600 transition duration-300">Contact</Link></li>
-              <li><Link href="/sitemap" className="text-gray-600 hover:text-green-600 transition duration-300">Sitemap</Link></li>
+              <li><Link href="/sitemap.xml" className="text-gray-600 hover:text-green-600 transition duration-300">Sitemap</Link></li>
             </ul>
           </div>
           <div>
